@@ -1,0 +1,31 @@
+{% extends "index.html" %}
+{% block main_content %}
+
+    {% for ev in events %}
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3">
+              {% if 'seatmap' in ev %}
+                <img src="{{ ev.seatmap.staticUrl }}" class="img-rounded" alt="Cinque Terre" width="250" height="200"/>
+              {% else %}
+                <img src="{{ ev.images[0].url }}" class="img-rounded" alt="Cinque Terre" width="250" height="200"/>
+              {% endif %}
+            </div>
+            <div class="col-md-6">
+                <h2>{{ ev.name }}</h2>
+                <p><b>Location:</b> {{ ev.dates.timezone }}</p>
+                <p><b>Date:</b> {{ ev.dates.start.localDate }}</p>
+                <p><b>Public Sales:</b> {{ ev.sales.public.startDateTime }} - {{ ev.sales.public.endDateTime }}</p>
+              {% if 'priceRanges' in ev %}
+                <p><b>Ticket Price Range:</b> {{ ev.priceRanges[0].currency }} {{ ev.priceRanges[0].min }} - {{ ev.priceRanges[0].max }}</p>
+              {% endif %}
+            </div>
+          </div>
+
+          <hr>
+        </div>
+    {% endfor %}
+
+    <br>
+    <hr>
+{% endblock %}
