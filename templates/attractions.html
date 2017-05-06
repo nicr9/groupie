@@ -11,13 +11,17 @@
             <div class="col-md-6">
               <h2>{{ attr.name }}</h2>
               <p><b>Genre:</b> {{ attr.classifications[0].genre.name }} / {{ attr.classifications[0].subGenre.name }}</p>
+              <div class="btn-group">
               {% if 'twitter' in attr.externalLinks %}
-              <a class="btn btn-secondary" href="{{ attr.externalLinks.twitter[0].url }}" role="button">Twitter &raquo;</a>
+              <a class="btn btn-primary" href="{{ attr.externalLinks.twitter[0].url }}" role="button">Twitter &raquo;</a>
               {% endif %}
               {% if 'facebook' in attr.externalLinks %}
-              <a class="btn btn-secondary" href="{{ attr.externalLinks.facebook[0].url }}" role="button">Facebook &raquo;</a>
+              <a class="btn btn-primary" href="{{ attr.externalLinks.facebook[0].url }}" role="button">Facebook &raquo;</a>
               {% endif %}
-              <a class="btn btn-secondary" href="{{ attr.url }}" role="button">TicketMaster &raquo;</a>
+              <a class="btn btn-primary" href="{{ attr.url }}" role="button">TicketMaster &raquo;</a>
+              </div>
+              <br><br>
+              <a href="/events/{{attr.id}}" class="btn btn-success">Find Events</a>
             </div>
           </div>
 
