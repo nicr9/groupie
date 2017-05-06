@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+{% block main_content %}
+
+    {% for attr in attractions %}
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+                <img src="{{ attr.images[0].url }}" class="img-rounded" alt="Cinque Terre" width="304" height="236"/>
+            </div>
+
+            <div class="col-md-6">
+              <h2>{{ attr.name }}</h2>
+              <p><b>Genre:</b> {{ attr.classifications[0].genre.name }} / {{ attr.classifications[0].subGenre.name }}</p>
+              {% if 'twitter' in attr.externalLinks %}
+              <a class="btn btn-secondary" href="{{ attr.externalLinks.twitter[0].url }}" role="button">Twitter &raquo;</a>
+              {% endif %}
+              {% if 'facebook' in attr.externalLinks %}
+              <a class="btn btn-secondary" href="{{ attr.externalLinks.facebook[0].url }}" role="button">Facebook &raquo;</a>
+              {% endif %}
+              <a class="btn btn-secondary" href="{{ attr.url }}" role="button">TicketMaster &raquo;</a>
+            </div>
+          </div>
+
+          <hr>
+        </div>
+    {% endfor %}
+
+    <br>
+    <hr>
+{% endblock %}
