@@ -1,0 +1,50 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: groupie
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: groupie
+    spec:
+      containers:
+      - name: groupie
+        image: {{ .Values.image }}
+        ports:
+        - containerPort: {{ .Values.containerPort }}
+        env:
+          - name: TICKETMASTER_API_KEY
+            value: {{ .Values.apiKey }}
+          - name: DEBUG
+            value: 0
+        imagePullPolicy: Always
+        resources:
+{{ toYaml .Values.resources | indent 12 }}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: groupie
+spec:
+  rules:
+    - host: {{ .Values.domain }}
+      http:
+        paths:
+        - backend:
+            serviceName: groupie
+            servicePort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+    name: groupie
+spec:
+    selector:
+        app: groupie
+    type: LoadBalancer
+    ports:
+      - port: 80
+        targetPort: 8000

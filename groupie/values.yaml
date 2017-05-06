@@ -1,0 +1,16 @@
+# Default values for groupie.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+image: "nicr9/groupie:latest"
+containerPort: 8000
+domain: groupie.nicro.land
+apiKey: null
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
