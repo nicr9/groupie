@@ -1,6 +1,5 @@
 import requests
 import os
-import json
 
 from urllib.parse import urljoin
 from flask import Flask, render_template, request
@@ -27,7 +26,12 @@ def search_attractions(keyword, locale='en-ie'):
     return resp.json()
 
 def attraction_details(attraction_id):
-    return ''
+    url = urljoin(BASE_URL, '/discovery/v2/attractions/{}.json'.format(attraction_id))
+    resp = requests.get(url, params={
+        'apikey': TICKETMASTER_API_KEY,
+        })
+
+    return resp.json()
 
 # TODO: Take country_code as a param
 def attraction_events(attraction_id, locale='en-ie'):
@@ -51,13 +55,12 @@ def attractions():
     results = search_attractions(request.args.get('q'))
     return render_template('attractions.html', attractions=results['_embedded']['attractions'])
 
-# TODO: Search for attraction details to pass to template
 @app.route('/events/<attraction_id>', methods=['GET'])
 def events(attraction_id):
     attr = attraction_details(attraction_id)
     results = attraction_events(attraction_id)
     evs = results['_embedded']['events'] if results['page']['totalElements'] else []
-    return render_template('events.html', attraction=attr, events=evs)
+    return render_template('events.html', attr=attr, events=evs)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)

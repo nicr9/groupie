@@ -1,6 +1,22 @@
 {% extends "index.html" %}
 {% block main_content %}
 
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-3">{{ attr.name }}</h1>
+        <p><b>Genre:</b> {{ attr.classifications[0].genre.name }} / {{ attr.classifications[0].subGenre.name }}</p>
+        <div class="btn-group">
+        {% if 'twitter' in attr.externalLinks %}
+        <a class="btn btn-primary" href="{{ attr.externalLinks.twitter[0].url }}" role="button">Twitter &raquo;</a>
+        {% endif %}
+        {% if 'facebook' in attr.externalLinks %}
+        <a class="btn btn-primary" href="{{ attr.externalLinks.facebook[0].url }}" role="button">Facebook &raquo;</a>
+        {% endif %}
+        <a class="btn btn-primary" href="{{ attr.url }}" role="button">TicketMaster &raquo;</a>
+        </div>
+      </div>
+    </div>
+
     {% for ev in events %}
         <div class="container">
           <div class="row">
