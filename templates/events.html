@@ -28,7 +28,7 @@
               {% endif %}
             </div>
             <div class="col-md-6">
-                <h2>{{ ev.name }}</h2>
+                <h2><a href="/events/bookings/{{ ev.id }}">{{ ev.name }}</a></h2>
                 <p><b>Location:</b> {{ ev.dates.timezone }}</p>
                 <p><b>Date:</b> {{ ev.dates.start.localDate }}</p>
                 <p><b>Public Sales:</b> {{ ev.sales.public.startDateTime }} - {{ ev.sales.public.endDateTime }}</p>

@@ -25,10 +25,31 @@ def search_attractions(keyword, locale='en-ie'):
 
     return resp.json()
 
-def attraction_details(attraction_id):
+def get_attraction_details(attraction_id):
     url = urljoin(BASE_URL, '/discovery/v2/attractions/{}.json'.format(attraction_id))
     resp = requests.get(url, params={
         'apikey': TICKETMASTER_API_KEY,
+        })
+
+    return resp.json()
+
+def get_event_details(event_id):
+    url = urljoin(BASE_URL, '/discovery/v2/events/{}.json'.format(event_id))
+    resp = requests.get(url, params={
+        'apikey': TICKETMASTER_API_KEY,
+        })
+
+    return resp.json()
+
+def get_bookings(event):
+    url = "https://api.airbnb.com/v2/search_results"
+    resp = requests.get(url, params={
+        'client_id': '3092nxybyb0otqw18e8nh5nty',
+        'locale': 'en-US',
+        'currency': 'USD',
+        'guests': 1,
+        'location': event['dates']['timezone'],
+        'sort': 1,
         })
 
     return resp.json()
@@ -57,10 +78,21 @@ def attractions():
 
 @app.route('/events/<attraction_id>', methods=['GET'])
 def events(attraction_id):
-    attr = attraction_details(attraction_id)
+    attr = get_attraction_details(attraction_id)
     results = attraction_events(attraction_id)
     evs = results['_embedded']['events'] if results['page']['totalElements'] else []
     return render_template('events.html', attr=attr, events=evs)
+
+@app.route('/events/bookings/<event_id>', methods=['GET'])
+def events_bookings(event_id):
+    ev = get_event_details(event_id)
+    results = get_bookings(ev)
+    return render_template(
+            'event_bookings.html',
+            event=ev,
+            metadata=results['metadata'],
+            bookings=results['search_results'],
+            )
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)

@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+{% block main_content %}
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-3">{{ event.name }}</h1>
+      </div>
+    </div>
+
+    {% for book in bookings %}
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+                <img src="{{ book.listing.picture_url }}" class="img-rounded" alt="Cinque Terre" width="304" height="236"/>
+            </div>
+            <div class="col-md-7">
+              <h2>{{ book.listing.name }}</h2>
+              <p><b>Room Type:</b> {{ book.listing.room_type }}</p>
+              <p><b>Beds:</b> {{ book.listing.bedrooms }} / <b>Bathrooms:</b>{{ book.listing.bathrooms }}</p>
+              <p><b>Pricing:</b> {{ book.pricing_quote.listing_currency }} {{ book.pricing_quote.nightly_price }}</p>
+              <p><b>Rating:</b> {{ book.listing.star_rating }}</p>
+              <br><br>
+              <a href="https://www.airbnb.ie/rooms/{{ book.listing.id }}" class="btn btn-success">Book on AirBnB</a>
+            </div>
+          </div>
+
+          <hr>
+        </div>
+    {% endfor %}
+
+    <br>
+    <hr>
+{% endblock %}
