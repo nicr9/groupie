@@ -6,6 +6,7 @@ Follow your favourite bands across the globe!
 
 This is the list of required functionality that I still need to implement:
 
+* Add a proper description of what group.ie is to the homepage
 * User should be able to specify their home airport
 * Find an API to hook into search for flights - skyscanner api key request is pending
 

@@ -17,7 +17,7 @@
               <h2>{{ book.listing.name }}</h2>
               <p><b>Room Type:</b> {{ book.listing.room_type }}</p>
               <p><b>Beds:</b> {{ book.listing.bedrooms }} / <b>Bathrooms:</b>{{ book.listing.bathrooms }}</p>
-              <p><b>Pricing:</b> {{ book.pricing_quote.listing_currency }} {{ book.pricing_quote.nightly_price }}</p>
+              <p><b>Nightly rate:</b> {{ book.pricing_quote.listing_currency }} {{ book.pricing_quote.nightly_price }}</p>
               <p><b>Rating:</b> {{ book.listing.star_rating }}</p>
               <br><br>
               <a href="https://www.airbnb.ie/rooms/{{ book.listing.id }}" class="btn btn-success">Book on AirBnB</a>

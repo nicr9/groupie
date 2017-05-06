@@ -8,7 +8,13 @@ push:
 	docker push ${IMAGE}
 
 deploy:
-	kubectl apply -f manifest.yml
+	@helm install --set apiKey=${TICKETMASTER_API_KEY} --name groupie ./groupie
 
-helm-deploy:
-	helm install groupie --set apiKey=${TICKETMASTER_API_KEY}
+status:
+	helm status groupie
+
+upgrade:
+	@helm upgrade --set apiKey=${TICKETMASTER_API_KEY} groupie ./groupie
+
+teardown:
+	helm delete groupie

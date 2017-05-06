@@ -1,1 +1,1 @@
-Application should be available at {{ .Values.domain }}
+Application should be available at http://{{ .Values.domain }}
